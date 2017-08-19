@@ -134,11 +134,9 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
                 "\n" +
                 "Read more: http://www.simplyrecipes.com/recipes/perfect_guacamole/#ixzz4jvoun5ws");
 
-        // guacNotes.setRecipe(guacRecipe) need for bidirectional, Sets RecipeId on notes - should be one method call
-        guacNotes.setRecipe(guacRecipe);
+        
         guacRecipe.setNotes(guacNotes);
 
-        //very redundent - could add helper method, and make this simpler
         guacRecipe.addIngredient(new Ingredient("ripe avocados", new BigDecimal(2), eachUom));
         guacRecipe.addIngredient(new Ingredient("Kosher salt", new BigDecimal(".5"), teapoonUom));
         guacRecipe.addIngredient(new Ingredient("fresh lime juice or lemon juice", new BigDecimal(2), tableSpoonUom));
@@ -186,8 +184,7 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
                 "\n" +
                 "Read more: http://www.simplyrecipes.com/recipes/spicy_grilled_chicken_tacos/#ixzz4jvu7Q0MJ");
 
-        // tacoNotes.setRecipe(tacosRecipe) need for bidirectional, Sets RecipeId on notes - should be one method call
-        tacoNotes.setRecipe(tacosRecipe);
+       
         tacosRecipe.setNotes(tacoNotes);
 
         tacosRecipe.addIngredient(new Ingredient("Ancho Chili Powder", new BigDecimal(2), tableSpoonUom));

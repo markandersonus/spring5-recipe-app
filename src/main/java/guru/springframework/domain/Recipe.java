@@ -135,6 +135,7 @@ public class Recipe {
 
 	public void setNotes(Notes notes) {
 		this.notes = notes;
+		notes.setRecipe(this); //updates recipeId on note. keeps logic of adding bi-di link in one place
 	}
 
 	public Difficulty getDifficulty() {
@@ -146,7 +147,7 @@ public class Recipe {
 	}
 
 	public Recipe addIngredient(Ingredient ingredient) {
-		 ingredient.setRecipe(this);
+		 ingredient.setRecipe(this); //updates recipeId on ingredient
 	        this.ingredients.add(ingredient);
 	        return this;
 		
