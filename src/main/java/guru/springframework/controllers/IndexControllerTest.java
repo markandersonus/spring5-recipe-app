@@ -4,6 +4,9 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -17,6 +20,9 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import static org.mockito.Mockito.*;
+
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.ui.Model;
 
 import guru.springframework.domain.Recipe;
@@ -59,6 +65,18 @@ public class IndexControllerTest {
 		//verify(recipeRepository, times(1)).findAll();
 	}
 
+	@Test
+	public void testMockMVC() throws Exception {
+		
+		// Use STANDALONE so it doesn't bring up context (otherwise not UNIT test)
+		// Also WAY faster
+		MockMvc mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
+		
+		mockMvc.perform(get("/"))
+		.andExpect(status().isOk())
+		.andExpect(view().name("index"));
+	}
+	
 	@Test
 	public void getIndexPage() {
 		
