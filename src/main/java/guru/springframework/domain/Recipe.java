@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.*;
@@ -22,14 +23,18 @@ public class Recipe {
 	private Integer servings;
 	private String source;
 	private String url;
+	
+	@Lob
 	private String directions;
 	
 	@Enumerated(value = EnumType.STRING)
 	private Difficulty difficulty;
 	
+	// init to avoid get null pointer exception
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe")
-	private Set<Ingredient> ingredients;
+	private Set<Ingredient> ingredients = new HashSet<>();
 	
+	//hibernate makes default field size of 255 chars if @Lob not used
 	@Lob
 	private Byte[] image;
 	
@@ -41,7 +46,8 @@ public class Recipe {
 	joinColumns = @JoinColumn(name = "recipe_id"), 
 	inverseJoinColumns = @JoinColumn(name="category_id"))
 	
-	private Set<Category> categories;
+	// init to avoid get null pointer exception
+	private Set<Category> categories = new HashSet<>();
 
 	public Set<Category> getCategories() {
 		return categories;
@@ -137,6 +143,13 @@ public class Recipe {
 
 	public void setDifficulty(Difficulty difficulty) {
 		this.difficulty = difficulty;
+	}
+
+	public Recipe addIngredient(Ingredient ingredient) {
+		 ingredient.setRecipe(this);
+	        this.ingredients.add(ingredient);
+	        return this;
+		
 	}
 
 	
